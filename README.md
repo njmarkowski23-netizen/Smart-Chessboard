@@ -84,7 +84,7 @@ BOARD_LEFT 1 is used for the left board.
 
 BOARD_LEFT 0 is used for the right board.
 
-Before uploading code to GitHub, Wi-Fi names and passwords should be removed.
+Before uploading code, Wi-Fi names and passwords should be changed to correct wifi name and password.
 
 ---
 
