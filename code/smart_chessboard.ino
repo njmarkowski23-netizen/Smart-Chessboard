@@ -1,3 +1,33 @@
+/*
+  Smart Chessboard - ESP32 Arduino Code
+
+  Senior Design Project
+  Farmingdale State College
+  Team Members:
+  - Nicholas Markowski
+  - Ajay Dasrath
+  - Jakub Kolakowski
+
+  Description:
+  This code controls one ESP32-based smart chessboard. The system detects chess
+  piece movement using reed switches and multiplexers, communicates moves over
+  Wi-Fi using MQTT, controls an XY gantry with stepper motors, and uses an
+  electromagnet to physically move chess pieces on the opposite board.
+
+  Main Features:
+  - ESP32 Wi-Fi connection
+  - MQTT publish/subscribe communication
+  - Reed switch piece detection
+  - 16-channel multiplexer scanning
+  - LCD display for status, turns, and timer
+  - Button controls for turn, reset, and time mode
+  - Limit switch homing
+  - Stepper motor gantry movement
+  - Electromagnet control through MOSFET
+  - Graveyard support for captured pieces
+
+*/
+
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <Wire.h>
