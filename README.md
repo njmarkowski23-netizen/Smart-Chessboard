@@ -1,87 +1,85 @@
-# Smart-Chessboard
-Smart Chessboard
+# Smart Chessboard
 
+A wireless smart chessboard system that connects two physical chessboards over Wi-Fi.
+When a player moves a piece on one board, the move is detected and automatically mirrored on the second board.
 
-Overview
+---
 
-The Smart Chessboard is a wireless physical chess system designed to combine the traditional feel of over-the-board chess with the connectivity of online chess. The project uses two physical chessboards that communicate wirelessly so that a move made on one board is automatically mirrored on the other board.
+## Project Overview
 
-Each board uses an ESP32 microcontroller, reed switch piece detection, MQTT communication, an XY gantry system, stepper motors, and an electromagnet to detect and replicate chess moves.
+This project was built as a senior design project at Farmingdale State College.
+The goal was to combine the physical experience of traditional chess with the remote connectivity of online chess.
 
-Project Purpose
+The system uses two ESP32 microcontrollers, reed switches, multiplexers, MQTT communication, stepper motors, and an electromagnet-based gantry system to detect and move chess pieces.
 
-Online chess allows players to compete remotely, but it removes the physical interaction of moving pieces on a real board. This project was designed to bring back the physical experience while still allowing two players to play from separate locations.
+---
 
-Features
-Two physical chessboards connected wirelessly
-ESP32 microcontrollers for embedded control
-MQTT communication for board-to-board move syncing
-Reed switches under each square for piece detection
-16-channel multiplexers to reduce ESP32 input pin usage
-CoreXY-style gantry system for movement
-Stepper motors for precise XY positioning
-Electromagnet for moving chess pieces
-Limit switches for homing and calibration
-LCD display for connection status, turns, and timers
-Buttons for turn control, reset, and game time selection
-Capture support using a graveyard area
-How It Works
+## Main Features
 
-When a player moves a chess piece, the reed switches underneath the board detect which square changed. The ESP32 reads the board state through multiplexers, determines the move, and sends that move to the second board using MQTT over Wi-Fi.
+* Two physical chessboards connected wirelessly
+* ESP32-based embedded control
+* MQTT communication between boards
+* Reed switch piece detection under each square
+* Multiplexers used to reduce ESP32 input pin usage
+* XY gantry system for automatic piece movement
+* Stepper motors for accurate positioning
+* Electromagnet used to move pieces from underneath the board
+* Limit switches for homing and calibration
+* LCD display for connection status, turns, and timers
+* Buttons for turn control, reset, and time mode selection
+* Graveyard area for captured pieces
 
-The receiving board then moves its gantry system to the correct square. An electromagnet mounted under the board turns on, grabs the corresponding piece, moves it to the destination square, and turns off to release it. This allows the second physical board to mirror the move automatically.
+---
 
-Hardware Used
-ESP32 microcontrollers
-Reed switches
-CD74HC4067 16-channel analog multiplexers
-NEMA 17 stepper motors
-A4988 stepper motor drivers
-Electromagnet
-IRLZ44N MOSFET
-Buck converters
-16x2 I2C LCD screens
-Limit switches
-Push buttons
-12V power supplies
-CoreXY gantry frame
-3D printed motor, pulley, trolley, and LCD mounts
-Software Used
-Arduino IDE
-C/C++
-WiFi.h
-PubSubClient MQTT library
-LiquidCrystal_I2C library
-Main Subsystems
-Piece Detection
+## How It Works
 
-Each chess square has a reed switch underneath it. Magnets inside the chess pieces close the reed switches when pieces are present. Multiplexers allow the ESP32 to read all 64 squares without needing 64 separate input pins.
+1. A player moves a chess piece on one board.
+2. Reed switches under the squares detect which piece was lifted and where it was placed.
+3. The ESP32 reads the reed switch signals through multiplexers.
+4. The move is sent to the other board using MQTT over Wi-Fi.
+5. The receiving ESP32 calculates the matching move.
+6. The gantry moves the electromagnet underneath the correct piece.
+7. The electromagnet turns on, moves the piece, and releases it on the destination square.
+8. Both physical boards stay synchronized.
 
-Wireless Communication
+---
 
-The two ESP32 boards communicate using MQTT. Each board can publish moves and subscribe to moves from the other board. This allows the boards to stay synchronized over Wi-Fi.
+## Hardware Used
 
-Motion Control
+* ESP32 microcontrollers
+* Reed switches
+* CD74HC4067 16-channel multiplexers
+* NEMA 17 stepper motors
+* Stepper motor drivers
+* Electromagnet
+* IRLZ44N MOSFET
+* Buck converters
+* 16x2 I2C LCD displays
+* Limit switches
+* Push buttons
+* 12V power supplies
+* Magnetic chess pieces
+* Wooden chessboard enclosure
+* 3D printed mounts and supports
+* Aluminum rail gantry system
 
-The gantry system uses two stepper motors to move an electromagnet underneath the board. The motors move the magnet to specific board coordinates so pieces can be moved from one square to another.
+---
 
-Electromagnet Control
+## Software Used
 
-The ESP32 controls the electromagnet through a MOSFET because the ESP32 cannot directly power the 12V electromagnet. The magnet turns on to grab a piece and turns off to release it.
+* Arduino IDE
+* C/C++
+* WiFi.h
+* PubSubClient MQTT library
+* LiquidCrystal_I2C library
 
-User Interface
-
-Each board includes an LCD and three buttons. The LCD displays connection status, turn information, and timers. The buttons are used for next turn, reset, and selecting different game time modes.
-
-Challenges
-
-Some of the main challenges included wiring a large number of reed switches, keeping jumper wires secure, calibrating the gantry movement, tuning the electromagnet strength, and preventing magnets inside the chess pieces from attracting each other too strongly.
+---
 
 ## Code
 
-The Arduino code for the ESP32 boards is located in the `code/` folder.
+The Arduino code is located in the `code/` folder.
 
-The project uses one main Arduino program for both boards. The board type is selected in the code using:
+The same main program can be used for both boards by changing this line:
 
 ```cpp
 #define BOARD_LEFT 1
@@ -93,7 +91,9 @@ Use:
 #define BOARD_LEFT 1
 ```
 
-for the left board, and:
+for the left board.
+
+Use:
 
 ```cpp
 #define BOARD_LEFT 0
@@ -101,18 +101,16 @@ for the left board, and:
 
 for the right board.
 
-Before uploading the code to an ESP32, update the Wi-Fi credentials:
+Before uploading the code, replace the Wi-Fi credentials with your own:
 
 ```cpp
 const char* ssid = "YOUR_WIFI_NAME";
 const char* password = "YOUR_WIFI_PASSWORD";
 ```
 
-Do not upload real Wi-Fi passwords or private information to GitHub.
+Do not upload real Wi-Fi passwords to GitHub.
 
-## Final Report
-
-The full senior design final report is included in this repository. It contains the project background, motivation, diagrams, parts list, technical components, timeline, feasibility, testing results, and appendix code.
+---
 
 ## Repository Structure
 
@@ -124,3 +122,66 @@ Smart-Chessboard/
 └── code/
     └── smart_chessboard.ino
 ```
+
+---
+
+## Main Subsystems
+
+### Piece Detection
+
+Each square has a reed switch underneath it.
+Magnets inside the chess pieces activate the reed switches, allowing the ESP32 to detect piece locations.
+
+### Wireless Communication
+
+The two ESP32 boards communicate using MQTT.
+Each board can publish and receive move data so the boards stay synchronized.
+
+### Motion Control
+
+The gantry system moves an electromagnet underneath the board.
+Stepper motors control the X and Y movement so the magnet can reach each square.
+
+### Electromagnet System
+
+The electromagnet is controlled by the ESP32 through a MOSFET.
+It turns on to grab a piece and turns off to release it.
+
+### User Interface
+
+Each board includes an LCD and three buttons.
+The LCD displays connection status, turn information, and timer information.
+The buttons control turn switching, reset, and game time selection.
+
+---
+
+## Challenges
+
+* Wiring and testing a large number of reed switches
+* Reading all board squares with limited ESP32 input pins
+* Keeping jumper wires secure during testing
+* Calibrating the gantry movement
+* Tuning the electromagnet strength
+* Preventing magnets inside the chess pieces from attracting each other
+* Maintaining reliable Wi-Fi and MQTT communication
+
+---
+
+## Final Result
+
+The final system successfully connected two physical chessboards over Wi-Fi.
+The boards were able to detect moves, communicate wirelessly, move pieces using the gantry and electromagnet system, and display game information through the LCD interface.
+
+---
+
+## Team Members
+
+* Ajay Dasrath
+* Nicholas Markowski
+* Jakub Kolakowski
+
+---
+
+## Project Status
+
+Completed senior design project.
