@@ -1,3 +1,5 @@
+![Final Smart Chessboards](final_boards.jpg)
+
 # Smart Chessboard
 
 A wireless smart chessboard system that connects two physical chessboards over Wi-Fi.
