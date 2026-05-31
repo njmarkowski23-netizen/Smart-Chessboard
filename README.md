@@ -1,4 +1,3 @@
-![Final Smart Chessboards](Screenshot 2026-05-31 034509.png)
 
 # Smart Chessboard
 
@@ -8,6 +7,7 @@ When a player moves a piece on one board, the move is detected and mirrored on t
 
 ---
 
+![Final Smart Chessboards](Screenshot%202026-05-31%20034509.png)
 ## Overview
 
 This project was made for our senior design project at Farmingdale State College.
