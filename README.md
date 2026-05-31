@@ -1,4 +1,4 @@
-![Final Smart Chessboards](final_boards.jpg)
+![Final Smart Chessboards](Screenshot 2026-05-31 034509.png)
 
 # Smart Chessboard
 
