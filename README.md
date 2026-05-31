@@ -77,6 +77,50 @@ Challenges
 
 Some of the main challenges included wiring a large number of reed switches, keeping jumper wires secure, calibrating the gantry movement, tuning the electromagnet strength, and preventing magnets inside the chess pieces from attracting each other too strongly.
 
-Final Result
+## Code
 
-The final project successfully connected two physical chessboards over Wi-Fi. The boards were able to detect moves, communicate through MQTT, move pieces using the gantry and electromagnet system, and display player information using the LCD interface.
+The Arduino code for the ESP32 boards is located in the `code/` folder.
+
+The project uses one main Arduino program for both boards. The board type is selected in the code using:
+
+```cpp
+#define BOARD_LEFT 1
+```
+
+Use:
+
+```cpp
+#define BOARD_LEFT 1
+```
+
+for the left board, and:
+
+```cpp
+#define BOARD_LEFT 0
+```
+
+for the right board.
+
+Before uploading the code to an ESP32, update the Wi-Fi credentials:
+
+```cpp
+const char* ssid = "YOUR_WIFI_NAME";
+const char* password = "YOUR_WIFI_PASSWORD";
+```
+
+Do not upload real Wi-Fi passwords or private information to GitHub.
+
+## Final Report
+
+The full senior design final report is included in this repository. It contains the project background, motivation, diagrams, parts list, technical components, timeline, feasibility, testing results, and appendix code.
+
+## Repository Structure
+
+```text
+Smart-Chessboard/
+│
+├── README.md
+├── Final_Report.pdf
+└── code/
+    └── smart_chessboard.ino
+```
